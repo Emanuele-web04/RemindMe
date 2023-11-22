@@ -7,18 +7,18 @@
 
 
 import SwiftUI
-
+import SwiftData
 struct NewReminder: View {
     var blockObject = Block()
     var listObj = ListObject()
     @State var item = ReminderStore()
-    @State private var isAddButtonDisabled = true
+    @State var isAddButtonDisabled = true
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
     @State private var showingAlert = false
     @State private var newItemPresented = false
-    
+    @State var dismissed = false
     
     var body: some View {
         NavigationStack {
@@ -51,7 +51,17 @@ struct NewReminder: View {
                 }
                 Section{
                     NavigationLink {
-                        DetailsView(showingAlert: .constant(false), isAddButtonDisabled: .constant(false))
+                        DetailsView(item: $item, dismissed: $dismissed, isButtonDisabled: $isAddButtonDisabled)
+                            .onDisappear() {
+                                if !isAddButtonDisabled {
+                                    if dismissed {
+                                        withAnimation {
+                                            context.insert(item)
+                                        }
+                                        dismiss()
+                                    }
+                                }
+                            }
                     } label: {
                         Text("Details")
                     }
@@ -114,9 +124,5 @@ struct NewReminder: View {
         
     }
     
-}
-
-#Preview {
-    NewReminder()
 }
 

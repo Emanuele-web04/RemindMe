@@ -14,7 +14,7 @@ final class ReminderStore: Identifiable {
     var title: String
     var notes: String
     var isDone: Bool
-    var selectDate: Date
+    var selectDate: Date?
     
     init(title: String = "", notes: String = "", isDone: Bool = false, selectDate: Date = .now) {
         self.title = title
@@ -24,6 +24,7 @@ final class ReminderStore: Identifiable {
         self.id = UUID()
     }
 }
+
 extension ReminderStore {
     
     static var dummy: ReminderStore {

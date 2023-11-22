@@ -13,6 +13,7 @@ struct RemindersTasks: View {
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Query private var items: [ReminderStore]
+    
     init(){
         
         var fontDescriptor = UIFont.systemFont(ofSize: 34).fontDescriptor.withDesign(.rounded) ?? UIFontDescriptor()

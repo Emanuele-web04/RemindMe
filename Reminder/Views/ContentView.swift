@@ -67,26 +67,7 @@ struct ContentView: View {
             }
             .navigationBarBackButtonHidden(true)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: {}){
-                            HStack{
-                                Text("Edit lists")
-                                Image(systemName: "square.and.pencil")
-                            }
-                        }
-                        Button(action: {}){
-                            HStack{
-                                Text("Templates")
-                                Image(systemName: "square.on.square")
-                            }
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .foregroundStyle(.blue)
-                    }
-                }
-                
+               
                 ToolbarItem(placement: .bottomBar) {
                     HStack(alignment: .center) {
                         Button(action: {

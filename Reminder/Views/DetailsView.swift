@@ -6,22 +6,32 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct DetailsView: View {
+    
     var detailDateTime = DetailsDateTime()
     var detailFlag = DetailsFlag()
+    @State var dateTime: Date = .now
     @State private var isSwitchDateOn = false
     @State private var isSwitchTagOn = false
     @State private var isSwitchMessageOn = false
     @State private var isSwitchLocationOn = false
     @State private var isSwitchOn = false
     @State private var isSwitchFlagOn = false
-    @State private var selectedDate = Date()
-    //@State private var item = ReminderStore()
-    @Binding var showingAlert: Bool
-    @Binding var isAddButtonDisabled: Bool
+    //@State private var selectedDate = Date()
+    @Binding var item: ReminderStore
+    @Binding var dismissed : Bool
+    @Environment (\.dismiss) var dismiss
+    @Environment(\.modelContext) var context
+    @Binding var isButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
+    func addItem() {
+        withAnimation {
+            context.insert(item)
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -43,9 +53,9 @@ struct DetailsView: View {
                     }
                     Section {
                         if isSwitchDateOn {
-                            DatePicker("", selection: $selectedDate, displayedComponents: .date)
+                            DatePicker("", selection: Binding($item.selectDate)!, displayedComponents: .date)
                                 .datePickerStyle(GraphicalDatePickerStyle())
-                            // Regola l'altezza secondo necessità
+                                .transition(.opacity)
                         }
                     }
                     .animation(.easeInOut(duration: 0.3), value: isSwitchDateOn)
@@ -68,9 +78,9 @@ struct DetailsView: View {
                     }
                     Section {
                         if isSwitchOn {
-                            DatePicker("", selection: $selectedDate, displayedComponents: .hourAndMinute)
-                                    .datePickerStyle(WheelDatePickerStyle())
-                                                .transition(.opacity)
+                            DatePicker("", selection: Binding($item.selectDate)!, displayedComponents: .hourAndMinute)
+                                .datePickerStyle(WheelDatePickerStyle())
+                                .transition(.opacity)
                         }
                     }
                 }
@@ -257,21 +267,54 @@ struct DetailsView: View {
             .navigationBarTitle("Details", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    /*if selectionDate.title != "" {
+                     Button("Add") {
+                     dismiss()
+                     }*/
                     Button("Add") {
-                        // Action for adding a new reminder
+                        if !isButtonDisabled {
+                            dismissed = true
+                            withAnimation {
+                                context.insert(item)
+                            }
+                        }
+                        dismiss()
                     }
-                    .foregroundStyle(isAddButtonDisabled == true ? .gray : .blue)
-                    .bold()
-                    .disabled(isAddButtonDisabled)
+                        .disabled(item.title == "")
+                        .interactiveDismissDisabled()
+                        .foregroundStyle(item.title == "" ? .gray : .blue)
+                        .bold()
+                    
                 }
             }
         }
-            
-            .accentColor(.blue)
-    }
-
-}
-#Preview {
-    DetailsView(showingAlert: .constant(false), isAddButtonDisabled: .constant(false))
+        
+        
         .accentColor(.blue)
+    }
+    //    private func addItem() {
+    //            withAnimation {
+    //                let newItem = ReminderStore(selectDate: dateTime)
+    //                context.insert(newItem)
+    //                dateTime = .now
+    //            }
+    //        }
+    
+//    private func addItem() {
+//        // Se dateTime è nil, utilizza la data e ora corrente come valore predefinito
+//        let newItem = ReminderStore(selectDate: dateTime ?? Date())
+//        context.insert(newItem)
+//        withAnimation {
+//            dateTime = selectionDate.selectDate ?? Date()
+//        }
+//    }
+//
+//        
+//        private func updateItem(_ item: ReminderStore) {
+//            withAnimation {
+//                item.selectDate = nil
+//            }
+//        }
+//        
 }
+
