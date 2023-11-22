@@ -15,22 +15,8 @@ struct RemindersTasks: View {
     @Query private var items: [ReminderStore]
     
     init(){
-        
-        var fontDescriptor = UIFont.systemFont(ofSize: 34).fontDescriptor.withDesign(.rounded) ?? UIFontDescriptor()
-        
-        // Then, create a font from this descriptor with a bold weight
-        // Note: This doesn't guarantee a "bold" appearance similar to UIFont.boldSystemFont
-        let roundedFont = UIFont(descriptor: fontDescriptor, size: 34) // You can experiment with the weight
-        fontDescriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor
-        
-        // Apply the rounded font to UINavigationBar
         UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor: UIColor.init(Color(.blue)),
-            .font: roundedFont
-        ]
-        UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor: UIColor.init(Color(.blue)),
-                .font: roundedFont
+            .foregroundColor: UIColor.init(Color(.blue))
         ]
     
 
