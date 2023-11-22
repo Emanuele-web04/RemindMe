@@ -26,6 +26,8 @@ struct DetailsView: View {
     @Binding var isButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
+   
+    
     func addItem() {
         withAnimation {
             context.insert(item)
@@ -317,4 +319,5 @@ struct DetailsView: View {
 //        }
 //        
 }
+
 

@@ -34,7 +34,7 @@ struct ToDoListItemView: View {
                              ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
                              : "No Date")
                         .font(.callout)
-                        .foregroundStyle(selectDate > .now ? .gray : .red)
+                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
                     }
                 }
             } else {
