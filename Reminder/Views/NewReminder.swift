@@ -7,29 +7,18 @@
 
 
 import SwiftUI
-import SwiftData
 
 struct NewReminder: View {
     var blockObject = Block()
     var listObj = ListObject()
-    @State private var item = ReminderStore()
+    @State var item = ReminderStore()
     @State private var isAddButtonDisabled = true
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
     @State private var showingAlert = false
     @State private var newItemPresented = false
-    @State private var showAlert = false
-    func save() {
-        
-    }
     
-    var canSave: Bool {
-        guard !item.title.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return false
-        }
-        return true
-    }
     
     var body: some View {
         NavigationStack {
@@ -109,11 +98,6 @@ struct NewReminder: View {
                     .bold()
                     .disabled(isAddButtonDisabled)
                 }
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"),
-                      message: Text("Please fill the form")
-                )
             }
             .confirmationDialog(
                         "Discard Changes?",

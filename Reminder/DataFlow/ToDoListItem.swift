@@ -10,5 +10,6 @@ import SwiftUI
 struct ToDoListItem: Identifiable {
     var id = UUID()
     var title: String
+    var notes: String
     var isDone: Bool
 }

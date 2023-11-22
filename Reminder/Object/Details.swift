@@ -9,8 +9,8 @@ import SwiftUI
 
 class DetailsDateTime {
     var detailDateTime = [
-        DetailDateTime(iconDateTime: Image(systemName: "calendar.circle.fill"), typeDateTime: "Date", colorDT: .red, isSwitchDateOn: false, isSwitchTimeOn: true),
-        DetailDateTime(iconDateTime: Image(systemName: "clock.circle.fill"), typeDateTime: "Time", colorDT: .blue, isSwitchDateOn: false, isSwitchTimeOn: true),
+        DetailDateTime(iconDateTime: Image(systemName: "calendar"), typeDateTime: "Date", colorDT: .red, isSwitchDateOn: false, isSwitchTimeOn: true),
+        DetailDateTime(iconDateTime: Image(systemName: "clock"), typeDateTime: "Time", colorDT: .blue, isSwitchDateOn: false, isSwitchTimeOn: true),
     ]
 }
 

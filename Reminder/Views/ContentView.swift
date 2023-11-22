@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+
 struct ContentView: View {
     
     @State private var searchText = ""
@@ -21,10 +22,9 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section {
-                    
                     ForEach(listObj.listObject) { list in
                         NavigationLink {
-                            RemindersTasks(showingModal: .constant(false))
+                            RemindersTasks()
                         } label: {
                             HStack {
                                 list.listIcon
@@ -34,8 +34,8 @@ struct ContentView: View {
                                     .foregroundStyle(Color.white, Color.blue)
                                 Text(list.listTag)
                                 Spacer()
-                                Text("\(items.count)")
-                                    .foregroundStyle(.gray)
+                                Text("\(items.filter { !$0.isDone }.count)") // Only count items that are not done
+                                               .foregroundStyle(.gray)
                             }
                         }
                     }
@@ -65,6 +65,7 @@ struct ContentView: View {
                 
                 
             }
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -87,7 +88,7 @@ struct ContentView: View {
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
-                    HStack(alignment: .center){
+                    HStack(alignment: .center) {
                         Button(action: {
                             showingModal = true
                         }) {
@@ -132,5 +133,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+    
 }
 
