@@ -10,9 +10,11 @@ import SwiftData
 
 struct RemindersTasks: View {
     @State private var isShowingModal2 = false
+    @Environment (\.modelContext) var context
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Query private var items: [ReminderStore]
+    @State private var toDoToEdit: ReminderStore?
     
     init(){
         UINavigationBar.appearance().largeTitleTextAttributes = [
@@ -38,8 +40,28 @@ struct RemindersTasks: View {
         NavigationStack {
             List {
                 Section {
-                   ForEach(items.filter { !$0.isDone }) { item in
+                    ForEach(items.filter { !$0.isDone }) { item in
                         ToDoListItemView(item: item)
+                            .swipeActions {
+                                
+                                Button(role: .destructive) {
+                                    
+                                    withAnimation(Animation.easeInOut(duration: 2.5)) {
+                                        context.delete(item)
+                                    }
+                                    
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
+                                
+                                Button {
+                                    toDoToEdit = item
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                .tint(.orange)
+                                
+                            }
                     }
                     .onDelete(perform: deleteItem)
                 }
@@ -92,7 +114,17 @@ struct RemindersTasks: View {
         }
         .sheet(isPresented: $isShowingModal2){
             NewReminder()
-        }
+        } .sheet(item: $toDoToEdit,
+                 onDismiss: {
+              toDoToEdit = nil
+          },
+                 content: { editItem in
+              NavigationStack {
+                  NewReminder(item: editItem)
+                      .interactiveDismissDisabled()
+              }
+              .presentationDetents([.large, .fraction(0.5)])
+          })
         .navigationTitle("Reminders")
         .navigationBarTitleDisplayMode(.large)
         

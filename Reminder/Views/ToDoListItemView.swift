@@ -29,11 +29,13 @@ struct ToDoListItemView: View {
                         Text(item.title)
                     }
                     Spacer()
-                    Text(item.selectDate != nil
-                         ? "\(item.selectDate!, format: Date.FormatStyle(date: .numeric, time: .shortened))"
-                         : "No Date")
-                       .font(.callout)
-
+                    if let selectDate = item.selectDate {
+                        Text(item.selectDate != nil
+                             ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
+                             : "No Date")
+                        .font(.callout)
+                        .foregroundStyle(selectDate > .now ? .gray : .red)
+                    }
                 }
             } else {
                 Button {
@@ -55,11 +57,13 @@ struct ToDoListItemView: View {
                             .foregroundStyle(.gray).opacity(0.8)
                     }
                     Spacer()
-                    Text(item.selectDate != nil
-                         ? "\(item.selectDate!, format: Date.FormatStyle(date: .numeric, time: .shortened))"
-                         : "No Date")
-                    .font(.callout).foregroundStyle(.gray).opacity(0.8)
-
+                    if let selectDate = item.selectDate {
+                        Text(item.selectDate != nil
+                             ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
+                             : "No Date")
+                        .font(.callout)
+                        .foregroundStyle(selectDate > .now ? .gray : .red)
+                    }
                 }
             }
             
