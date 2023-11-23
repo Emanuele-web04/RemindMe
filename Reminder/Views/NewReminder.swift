@@ -13,6 +13,8 @@ struct NewReminder: View {
     var listObj = ListObject()
     @State var item = ReminderStore()
     @Binding var isAddButtonDisabled: Bool
+    @Binding var isSwitchOn: Bool
+    @Binding var isSwitchDateOn: Bool
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
@@ -58,7 +60,7 @@ struct NewReminder: View {
                 }
                 Section{
                     NavigationLink {
-                        DetailsView(item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled)
+                        DetailsView(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn ,item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled)
                             .onDisappear() {
                                 if !isAddButtonDisabled {
                                     if dismissed {

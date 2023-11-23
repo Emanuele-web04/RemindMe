@@ -8,15 +8,12 @@
 import SwiftUI
 import SwiftData
 struct DetailsView: View {
-    
-    var detailDateTime = DetailsDateTime()
-    var detailFlag = DetailsFlag()
     @State var dateTime: Date = .now
-    @State private var isSwitchDateOn = false
+    @Binding var isSwitchOn: Bool
+    @Binding var isSwitchDateOn: Bool
     @State private var isSwitchTagOn = false
     @State private var isSwitchMessageOn = false
     @State private var isSwitchLocationOn = false
-    @State private var isSwitchOn = false
     @State private var isSwitchFlagOn = false
     //@State private var selectedDate = Date()
     @Binding var item: ReminderStore
@@ -51,12 +48,19 @@ struct DetailsView: View {
                                 .foregroundStyle(Color.white, .red)
                         }
                         Toggle("Date", isOn: $isSwitchDateOn)
+                            .onChange(of: isSwitchDateOn) { value in
+                                            if !value {
+                                                item.selectDate = nil
+                                            }
+                                        }
                     }
                     Section {
                         if isSwitchDateOn {
-                            DatePicker("", selection: Binding($item.selectDate)!, displayedComponents: .date)
-                                .datePickerStyle(GraphicalDatePickerStyle())
-                                .transition(.opacity)
+                            withAnimation {
+                                DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .date)
+                                            .datePickerStyle(GraphicalDatePickerStyle())
+                                            .transition(.opacity)
+                            }
                         }
                     }
                     .animation(.easeInOut(duration: 0.3), value: isSwitchDateOn)
@@ -75,11 +79,16 @@ struct DetailsView: View {
                                     .foregroundStyle(Color.white, .blue)
                             }
                             Toggle("Time", isOn: $isSwitchOn)
+                                .onChange(of: isSwitchOn) { value in
+                                        if !value {
+                                            item.selectDate = nil
+                                        }
+                                    }
                         }
                     }
                     Section {
                         if isSwitchOn {
-                            DatePicker("", selection: Binding($item.selectDate)!, displayedComponents: .hourAndMinute)
+                            DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .hourAndMinute)
                                 .datePickerStyle(WheelDatePickerStyle())
                                 .transition(.opacity)
                         }

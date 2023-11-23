@@ -16,6 +16,8 @@ struct RemindersTasks: View {
     @Query private var items: [ReminderStore]
     @State private var toDoToEdit: ReminderStore?
     @State private var isAddButtonDisabled = true
+    @State private var isSwitchOn = false
+    @State private var isSwitchDateOn = false
     
     func deleteItem(at offsets: IndexSet) {
             offsets.forEach { index in
@@ -105,17 +107,16 @@ struct RemindersTasks: View {
             
         }
         .sheet(isPresented: $isShowingModal2){
-            NewReminder(isAddButtonDisabled: $isAddButtonDisabled)
+            NewReminder(isAddButtonDisabled: $isAddButtonDisabled, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
         } .sheet(item: $toDoToEdit,
                  onDismiss: {
               toDoToEdit = nil
           },
                  content: { editItem in
               NavigationStack {
-                  NewReminder(item: editItem, isAddButtonDisabled: $isAddButtonDisabled)
+                  NewReminder(item: editItem, isAddButtonDisabled: $isAddButtonDisabled, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
                       .interactiveDismissDisabled()
               }
-              .presentationDetents([.large, .fraction(0.5)])
           })
         .navigationTitle("Reminders")
         .navigationBarTitleDisplayMode(.large)
