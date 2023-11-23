@@ -29,7 +29,7 @@ struct ToDoListItemView: View {
                         Text(item.title)
                     }
                     Spacer()
-                    if let selectDate = item.selectDate {
+                    if var selectDate = item.selectDate {
                         Text(item.selectDate != nil
                              ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
                              : "")

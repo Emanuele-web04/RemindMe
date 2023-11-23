@@ -336,13 +336,14 @@ struct DetailsView: View {
                             withAnimation {
                                 context.insert(item)
                             }
+                            
                         }
                         dismiss()
                     }
-                        .disabled(item.title == "")
-                        .interactiveDismissDisabled()
-                        .foregroundStyle(item.title == "" ? .gray : .blue)
-                        .bold()
+                    .disabled(item.title == "")
+                    .interactiveDismissDisabled()
+                    .foregroundStyle(item.title == "" ? .gray : .blue)
+                    .bold()
                     
                 }
             }
