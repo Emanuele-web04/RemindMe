@@ -86,7 +86,7 @@ struct ContentView: View {
                         }
                         .sheet(isPresented: $showingModal) {
                             // Content of the modal view goes here
-                            NewReminder()
+                            NewReminder(isAddButtonDisabled: .constant(true))
                         }
                         Spacer()
                         Button("Add List", action: {})
@@ -112,8 +112,5 @@ struct ContentView: View {
 
 
 
-#Preview {
-    ContentView()
-    
-}
+
 

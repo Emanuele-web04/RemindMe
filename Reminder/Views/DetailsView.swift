@@ -23,11 +23,10 @@ struct DetailsView: View {
     @Binding var dismissed : Bool
     @Environment (\.dismiss) var dismiss
     @Environment(\.modelContext) var context
-    @Binding var isButtonDisabled : Bool
+    @Binding var isAddButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
    
-    
     func addItem() {
         withAnimation {
             context.insert(item)
@@ -89,49 +88,98 @@ struct DetailsView: View {
                 
                 
                 Section {
-                    HStack {
-                        Image(systemName: "bell.square.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.white, .purple)
-                        Text("Early Reminder")
-                        Spacer()
-                        Menu {
-                            Button(action: {}){
-                                HStack{
-                                    Text("None")
-                                    
+                    if isSwitchOn {
+                        HStack {
+                            Image(systemName: "bell.square.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(Color.white, .purple)
+                            Text("Early Reminder")
+                            Spacer()
+                            Menu {
+                                Button(action: {}){
+                                    HStack{
+                                        Text("None")
+                                        
+                                    }
                                 }
-                            }
-                            Button(action: {}){
-                                HStack{
-                                    Text("1 day before")
-                                    
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 day before")
+                                        
+                                    }
                                 }
-                            }
-                            Button(action: {}){
-                                HStack{
-                                    Text("2 day before")
-                                    
+                                Button(action: {}){
+                                    HStack{
+                                        Text("2 day before")
+                                        
+                                    }
                                 }
-                            }
-                            Button(action: {}){
-                                HStack{
-                                    Text("1 week before")
-                                    
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 week before")
+                                        
+                                    }
                                 }
-                            }
-                            Button(action: {}){
-                                HStack{
-                                    Text("1 month before")
-                                    
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 month before")
+                                        
+                                    }
                                 }
+                                
+                            } label: {
+                                Image(systemName: "chevron.up.chevron.down")
+                                    .foregroundStyle(.gray).opacity(0.6)
                             }
+                        }
+                    } else if isSwitchDateOn {
+                            HStack {
+                                Image(systemName: "bell.square.fill")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(Color.white, .purple)
+                                Text("Early Reminder")
+                                Spacer()
+                                Menu {
+                                    Button(action: {}){
+                                        HStack{
+                                            Text("None")
+                                            
+                                        }
+                                    }
+                                    Button(action: {}){
+                                        HStack{
+                                            Text("1 day before")
+                                            
+                                        }
+                                    }
+                                    Button(action: {}){
+                                        HStack{
+                                            Text("2 day before")
+                                            
+                                        }
+                                    }
+                                    Button(action: {}){
+                                        HStack{
+                                            Text("1 week before")
+                                            
+                                        }
+                                    }
+                                    Button(action: {}){
+                                        HStack{
+                                            Text("1 month before")
+                                            
+                                        }
+                                    }
+                                    
+                                } label: {
+                                    Image(systemName: "chevron.up.chevron.down")
+                                        .foregroundStyle(.gray).opacity(0.6)
+                                }
                         
-                        } label: {
-                            Image(systemName: "chevron.up.chevron.down")
-                                .foregroundStyle(.gray).opacity(0.6)
                         }
                     }
                 
@@ -274,7 +322,7 @@ struct DetailsView: View {
                      dismiss()
                      }*/
                     Button("Add") {
-                        if !isButtonDisabled {
+                        if !isAddButtonDisabled {
                             dismissed = true
                             withAnimation {
                                 context.insert(item)
@@ -294,30 +342,6 @@ struct DetailsView: View {
         
         .accentColor(.blue)
     }
-    //    private func addItem() {
-    //            withAnimation {
-    //                let newItem = ReminderStore(selectDate: dateTime)
-    //                context.insert(newItem)
-    //                dateTime = .now
-    //            }
-    //        }
-    
-//    private func addItem() {
-//        // Se dateTime è nil, utilizza la data e ora corrente come valore predefinito
-//        let newItem = ReminderStore(selectDate: dateTime ?? Date())
-//        context.insert(newItem)
-//        withAnimation {
-//            dateTime = selectionDate.selectDate ?? Date()
-//        }
-//    }
-//
-//        
-//        private func updateItem(_ item: ReminderStore) {
-//            withAnimation {
-//                item.selectDate = nil
-//            }
-//        }
-//        
 }
 
 

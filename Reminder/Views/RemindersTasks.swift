@@ -15,18 +15,7 @@ struct RemindersTasks: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Query private var items: [ReminderStore]
     @State private var toDoToEdit: ReminderStore?
-    
-    init(){
-        UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor: UIColor.init(Color(.blue))
-        ]
-    
-
-        // Set large title attributes, including font and color
-        
-    }
-  
-
+    @State private var isAddButtonDisabled = true
     
     func deleteItem(at offsets: IndexSet) {
             offsets.forEach { index in
@@ -56,6 +45,8 @@ struct RemindersTasks: View {
                                 
                                 Button {
                                     toDoToEdit = item
+                                    isAddButtonDisabled = false
+                                    //isShowingModal2 = true
                                 } label: {
                                     Label("Edit", systemImage: "pencil")
                                 }
@@ -97,6 +88,7 @@ struct RemindersTasks: View {
                 HStack(spacing: 5) {
                     Button(action: {
                         isShowingModal2 = true
+                        isAddButtonDisabled = true
                     }) {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
@@ -113,14 +105,14 @@ struct RemindersTasks: View {
             
         }
         .sheet(isPresented: $isShowingModal2){
-            NewReminder()
+            NewReminder(isAddButtonDisabled: $isAddButtonDisabled)
         } .sheet(item: $toDoToEdit,
                  onDismiss: {
               toDoToEdit = nil
           },
                  content: { editItem in
               NavigationStack {
-                  NewReminder(item: editItem)
+                  NewReminder(item: editItem, isAddButtonDisabled: $isAddButtonDisabled)
                       .interactiveDismissDisabled()
               }
               .presentationDetents([.large, .fraction(0.5)])
@@ -134,6 +126,4 @@ struct RemindersTasks: View {
 }
 
 // This preview will show the changes made above
-#Preview {
-    RemindersTasks()
-}
+

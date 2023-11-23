@@ -12,22 +12,29 @@ struct NewReminder: View {
     var blockObject = Block()
     var listObj = ListObject()
     @State var item = ReminderStore()
-    @State var isAddButtonDisabled = true
+    @Binding var isAddButtonDisabled: Bool
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
     @State private var showingAlert = false
     @State private var newItemPresented = false
     @State var dismissed = false
+    @FocusState var isTextFieldFocused
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     TextField("Title", text: $item.title)
-                        .onChange(of: item.title) { newValue in
-                            isAddButtonDisabled = newValue.isEmpty
+                        .onChange(of: item.title, initial: isAddButtonDisabled) {
+                            isAddButtonDisabled = false
                         }
+                        .focused($isTextFieldFocused)
+                                    .onAppear {
+                                        DispatchQueue.main.async {
+                                            self.isTextFieldFocused = true
+                                        }
+                                    }
                         .accentColor(.blue)
                     ZStack(alignment: .leading) {
                         if item.notes.isEmpty {
@@ -51,7 +58,7 @@ struct NewReminder: View {
                 }
                 Section{
                     NavigationLink {
-                        DetailsView(item: $item, dismissed: $dismissed, isButtonDisabled: $isAddButtonDisabled)
+                        DetailsView(item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled)
                             .onDisappear() {
                                 if !isAddButtonDisabled {
                                     if dismissed {
@@ -102,11 +109,12 @@ struct NewReminder: View {
                             context.insert(item)
                         }
                         dismiss()
+                        item.selectDate = nil
                     }
+                    .disabled(item.title == "")
                     .interactiveDismissDisabled()
-                    .foregroundStyle(isAddButtonDisabled == true ? .gray : .blue)
+                    .foregroundStyle(item.title == "" ? .gray : .blue)
                     .bold()
-                    .disabled(isAddButtonDisabled)
                 }
             }
             .confirmationDialog(

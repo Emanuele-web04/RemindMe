@@ -32,7 +32,7 @@ struct ToDoListItemView: View {
                     if let selectDate = item.selectDate {
                         Text(item.selectDate != nil
                              ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
-                             : "No Date")
+                             : "")
                         .font(.callout)
                         .foregroundStyle(selectDate > Date.now ? .gray : .red)
                     }
