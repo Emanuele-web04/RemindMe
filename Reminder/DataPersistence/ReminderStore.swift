@@ -31,7 +31,8 @@ extension ReminderStore {
         .init(title: "Item 1",
               notes: "Item 2",
               isDone: false,
-              selectDate: .now)
+              selectDate: .now
+        )
     }
 }
 

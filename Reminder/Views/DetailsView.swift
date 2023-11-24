@@ -50,10 +50,7 @@ struct DetailsView: View {
                         Toggle("Date", isOn: $isSwitchDateOn)
                                 .onChange(of: isSwitchDateOn, initial: false) {
                                     if !isSwitchDateOn {
-                                        item.selectDate = nil
-                                        isSwitchOn = false
-                                    } else if isSwitchDateOn {
-                                        isSwitchOn = true
+                                        item.selectDate = .now
                                     }
                                 }
                     }
@@ -62,11 +59,9 @@ struct DetailsView: View {
                             withAnimation {
                                 DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .date)
                                             .datePickerStyle(GraphicalDatePickerStyle())
-                                            .transition(.opacity)
                             }
                         }
                     }
-                    .animation(.easeInOut(duration: 0.3), value: isSwitchDateOn)
                     Section{
                         HStack {
                             ZStack {
@@ -82,11 +77,7 @@ struct DetailsView: View {
                                     .foregroundStyle(Color.white, .blue)
                             }
                             Toggle("Time", isOn: $isSwitchOn)
-                                .onChange(of: isSwitchOn, initial: false) {
-                                    if !isSwitchOn {
-                                        item.selectDate = nil
-                                    }
-                                }
+                                
                         }
                     }
                     Section {

@@ -67,10 +67,11 @@ struct NewReminder: View {
                                         withAnimation {
                                             context.insert(item)
                                         }
+                                        dismiss()
                                     }
-                                    dismiss()
                                 }
                             }
+                        
                     } label: {
                         Text("Details")
                     }
@@ -108,7 +109,7 @@ struct NewReminder: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         if !isSwitchOn || !isSwitchDateOn {
-                            item.selectDate = nil
+                            item.selectDate = .now
                         } else {
                             
                         }
@@ -117,7 +118,6 @@ struct NewReminder: View {
                         }
                         dismiss()
                     }
-                    
                     .disabled(item.title == "")
                     .interactiveDismissDisabled()
                     .foregroundStyle(item.title == "" ? .gray : .blue)

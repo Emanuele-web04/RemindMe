@@ -16,8 +16,8 @@ struct ContentView: View {
     let gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 50), count: 2) // Adjust the spacing value as needed
     @State private var showingModal = false
     @Query private var items: [ReminderStore]
-    @Binding var isSwitchOn: Bool
-    @Binding var isSwitchDateOn: Bool
+    @State private var isSwitchOn = false
+    @State private var isSwitchDateOn = false
 
     
     var body: some View {
@@ -27,7 +27,7 @@ struct ContentView: View {
                 Section {
                     ForEach(listObj.listObject) { list in
                         NavigationLink {
-                            RemindersTasks()
+                            RemindersTasks(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
                         } label: {
                             HStack {
                                 list.listIcon

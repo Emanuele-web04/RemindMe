@@ -16,8 +16,8 @@ struct RemindersTasks: View {
     @Query private var items: [ReminderStore]
     @State private var toDoToEdit: ReminderStore?
     @State private var isAddButtonDisabled = true
-    @State private var isSwitchOn = false
-    @State private var isSwitchDateOn = false
+    @Binding var isSwitchOn: Bool
+    @Binding var isSwitchDateOn: Bool
     
     func deleteItem(at offsets: IndexSet) {
             offsets.forEach { index in
