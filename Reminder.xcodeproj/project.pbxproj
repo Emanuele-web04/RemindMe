@@ -16,6 +16,7 @@
 		C0A724372B0915FC00FFE4D0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A724362B0915FC00FFE4D0 /* DetailsView.swift */; };
 		C0A724392B0917BF00FFE4D0 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A724382B0917BF00FFE4D0 /* Detail.swift */; };
 		C0A7243B2B09183100FFE4D0 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7243A2B09183100FFE4D0 /* Details.swift */; };
+		C0A842A22B1130C800BF235A /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A842A12B1130C800BF235A /* NotificationHandler.swift */; };
 		C0BB4EDA2B07EDC200A44B60 /* ReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BB4ED92B07EDC200A44B60 /* ReminderApp.swift */; };
 		C0BB4EDC2B07EDC200A44B60 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BB4EDB2B07EDC200A44B60 /* ContentView.swift */; };
 		C0BB4EDE2B07EDC200A44B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0BB4EDD2B07EDC200A44B60 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		C0A724362B0915FC00FFE4D0 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		C0A724382B0917BF00FFE4D0 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		C0A7243A2B09183100FFE4D0 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
+		C0A842A12B1130C800BF235A /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		C0BB4ED62B07EDC200A44B60 /* Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BB4ED92B07EDC200A44B60 /* ReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderApp.swift; sourceTree = "<group>"; };
 		C0BB4EDB2B07EDC200A44B60 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		C0BB4EFA2B07EF8700A44B60 /* DataFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C0A842A12B1130C800BF235A /* NotificationHandler.swift */,
 				C0BB4EF32B07EED300A44B60 /* CalendarTypeNumber.swift */,
 				C02BC1DA2B0B4B6900A6FF62 /* ToDoListItem.swift */,
 				C02BC1D62B0B443900A6FF62 /* Task.swift */,
@@ -237,6 +240,7 @@
 				C0BB4EF22B07EEAE00A44B60 /* BlockSchedule.swift in Sources */,
 				C0BB4EF42B07EED300A44B60 /* CalendarTypeNumber.swift in Sources */,
 				C02BC1D52B0B420500A6FF62 /* RemindersTasks.swift in Sources */,
+				C0A842A22B1130C800BF235A /* NotificationHandler.swift in Sources */,
 				C0BB4EDA2B07EDC200A44B60 /* ReminderApp.swift in Sources */,
 				C02BC1E12B0B9E4200A6FF62 /* ReminderStore.swift in Sources */,
 			);

@@ -18,17 +18,13 @@ struct DetailsView: View {
     //@State private var selectedDate = Date()
     @Binding var item: ReminderStore
     @Binding var dismissed : Bool
+    @State private var notification = NotificationHandler()
     @Environment (\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @Binding var isAddButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
-   
-    func addItem() {
-        withAnimation {
-            context.insert(item)
-        }
-    }
+    
     
     var body: some View {
         NavigationStack {
@@ -320,6 +316,11 @@ struct DetailsView: View {
                      dismiss()
                      }*/
                     Button("Add") {
+                        notification.sendNotification(
+                            date: item.selectDate ?? Date.now,
+                            type: "date",
+                            title: "Date based notification",
+                            body: "This notification is a reminder that you added a date. Tap on the notification to see more.")
                         if !isAddButtonDisabled {
                             dismissed = true
                             withAnimation {
@@ -327,6 +328,7 @@ struct DetailsView: View {
                             }
                         }
                         dismiss()
+                        
                     }
                     .disabled(item.title == "")
                     .interactiveDismissDisabled()

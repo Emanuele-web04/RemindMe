@@ -18,7 +18,7 @@ struct ContentView: View {
     @Query private var items: [ReminderStore]
     @State private var isSwitchOn = false
     @State private var isSwitchDateOn = false
-
+    @State private var askForPermission = NotificationHandler()
     
     var body: some View {
         
@@ -131,6 +131,11 @@ struct ContentView: View {
             // miett hstack
             .searchable(text: $searchText)
             .font(.system(.body, design: .rounded))
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                askForPermission.askPermission()
+            }
         }
     }
 }
