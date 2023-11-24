@@ -48,11 +48,6 @@ struct DetailsView: View {
                                 .foregroundStyle(Color.white, .red)
                         }
                         Toggle("Date", isOn: $isSwitchDateOn)
-                                .onChange(of: isSwitchDateOn, initial: false) {
-                                    if !isSwitchDateOn {
-                                        item.selectDate = .now
-                                    }
-                                }
                     }
                     Section {
                         if isSwitchDateOn {

@@ -10,6 +10,8 @@ import SwiftData
 
 struct ToDoListItemView: View {
     @Bindable var item: ReminderStore
+    @Binding var isSwitchOn: Bool
+    @Binding var isSwitchDateOn: Bool
     var body: some View {
         HStack {
             if item.notes == "" {
@@ -29,13 +31,16 @@ struct ToDoListItemView: View {
                         Text(item.title)
                     }
                     Spacer()
-                    if var selectDate = item.selectDate {
-                        Text(item.selectDate != nil
-                             ? "\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))"
-                             : "")
-                        .font(.callout)
-                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                    if let selectDate = item.selectDate {
+                        if (isSwitchOn || isSwitchDateOn) {
+                            Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                .font(.callout)
+                                .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                        } else if (!isSwitchOn && !isSwitchDateOn){
+                            Text("")
+                        }
                     }
+                    
                 }
             } else {
                 Button {

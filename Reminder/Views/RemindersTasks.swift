@@ -32,7 +32,7 @@ struct RemindersTasks: View {
             List {
                 Section {
                     ForEach(items.filter { !$0.isDone }) { item in
-                        ToDoListItemView(item: item)
+                        ToDoListItemView(item: item, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
                             .swipeActions {
                                 
                                 Button(role: .destructive) {
