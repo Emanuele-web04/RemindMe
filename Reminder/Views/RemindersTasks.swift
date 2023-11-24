@@ -107,14 +107,14 @@ struct RemindersTasks: View {
             
         }
         .sheet(isPresented: $isShowingModal2){
-            NewReminder(isAddButtonDisabled: $isAddButtonDisabled, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
+            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
         } .sheet(item: $toDoToEdit,
                  onDismiss: {
               toDoToEdit = nil
           },
                  content: { editItem in
               NavigationStack {
-                  NewReminder(item: editItem, isAddButtonDisabled: $isAddButtonDisabled, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
+                  NewReminder(item: editItem, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
                       .interactiveDismissDisabled()
               }
           })

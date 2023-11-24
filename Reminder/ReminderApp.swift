@@ -22,7 +22,7 @@ struct ReminderApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(isSwitchOn: .constant(false), isSwitchDateOn: .constant(false))
         }
         .modelContainer(for: ReminderStore.self)
     }

@@ -16,6 +16,9 @@ struct ContentView: View {
     let gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 50), count: 2) // Adjust the spacing value as needed
     @State private var showingModal = false
     @Query private var items: [ReminderStore]
+    @Binding var isSwitchOn: Bool
+    @Binding var isSwitchDateOn: Bool
+
     
     var body: some View {
         
@@ -111,7 +114,7 @@ struct ContentView: View {
                         }
                         .sheet(isPresented: $showingModal) {
                             // Content of the modal view goes here
-                            NewReminder(isAddButtonDisabled: .constant(true), isSwitchOn: .constant(false), isSwitchDateOn: .constant(false))
+                            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
                         }
                         Spacer()
                         Button("Add List", action: {})

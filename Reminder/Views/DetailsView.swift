@@ -48,11 +48,14 @@ struct DetailsView: View {
                                 .foregroundStyle(Color.white, .red)
                         }
                         Toggle("Date", isOn: $isSwitchDateOn)
-                            .onChange(of: isSwitchDateOn) { value in
-                                            if !value {
-                                                item.selectDate = nil
-                                            }
-                                        }
+                                .onChange(of: isSwitchDateOn, initial: false) {
+                                    if !isSwitchDateOn {
+                                        item.selectDate = nil
+                                        isSwitchOn = false
+                                    } else if isSwitchDateOn {
+                                        isSwitchOn = true
+                                    }
+                                }
                     }
                     Section {
                         if isSwitchDateOn {
@@ -79,11 +82,11 @@ struct DetailsView: View {
                                     .foregroundStyle(Color.white, .blue)
                             }
                             Toggle("Time", isOn: $isSwitchOn)
-                                .onChange(of: isSwitchOn) { value in
-                                        if !value {
-                                            item.selectDate = nil
-                                        }
+                                .onChange(of: isSwitchOn, initial: false) {
+                                    if !isSwitchOn {
+                                        item.selectDate = nil
                                     }
+                                }
                         }
                     }
                     Section {
@@ -336,7 +339,6 @@ struct DetailsView: View {
                             withAnimation {
                                 context.insert(item)
                             }
-                            
                         }
                         dismiss()
                     }

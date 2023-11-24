@@ -12,7 +12,7 @@ struct NewReminder: View {
     var blockObject = Block()
     var listObj = ListObject()
     @State var item = ReminderStore()
-    @Binding var isAddButtonDisabled: Bool
+    @State var isAddButtonDisabled = true
     @Binding var isSwitchOn: Bool
     @Binding var isSwitchDateOn: Bool
     @Environment (\.dismiss) var dismiss
@@ -67,8 +67,8 @@ struct NewReminder: View {
                                         withAnimation {
                                             context.insert(item)
                                         }
-                                        dismiss()
                                     }
+                                    dismiss()
                                 }
                             }
                     } label: {
@@ -117,7 +117,7 @@ struct NewReminder: View {
                         }
                         dismiss()
                     }
-                   
+                    
                     .disabled(item.title == "")
                     .interactiveDismissDisabled()
                     .foregroundStyle(item.title == "" ? .gray : .blue)
