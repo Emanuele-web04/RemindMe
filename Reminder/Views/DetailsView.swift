@@ -316,11 +316,13 @@ struct DetailsView: View {
                      dismiss()
                      }*/
                     Button("Add") {
+                        let formattedDate = item.selectDate?.formatted(.dateTime.day().month().hour().minute()) ?? Date.now.formatted(.dateTime.day().month().hour().minute())
                         notification.sendNotification(
                             date: item.selectDate ?? Date.now,
                             type: "date",
-                            title: "Date based notification",
-                            body: "This notification is a reminder that you added a date. Tap on the notification to see more.")
+                            title: item.title,
+                            body: "You created a reminder for \(formattedDate)"
+                        )
                         if !isAddButtonDisabled {
                             dismissed = true
                             withAnimation {
@@ -328,8 +330,8 @@ struct DetailsView: View {
                             }
                         }
                         dismiss()
-                        
                     }
+
                     .disabled(item.title == "")
                     .interactiveDismissDisabled()
                     .foregroundStyle(item.title == "" ? .gray : .blue)
