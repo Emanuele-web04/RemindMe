@@ -22,6 +22,8 @@ struct NewReminder: View {
     @State private var newItemPresented = false
     @State var dismissed = false
     @FocusState var isTextFieldFocused
+    @Binding var priorityStatus: String
+
     
     var body: some View {
         NavigationStack {
@@ -60,7 +62,7 @@ struct NewReminder: View {
                 }
                 Section{
                     NavigationLink {
-                        DetailsView(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn ,item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled)
+                        DetailsView(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn ,item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled, priorityStatus: $priorityStatus)
                             .onDisappear() {
                                 if !isAddButtonDisabled {
                                     if dismissed {

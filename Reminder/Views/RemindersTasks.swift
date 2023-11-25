@@ -18,6 +18,8 @@ struct RemindersTasks: View {
     @State private var isAddButtonDisabled = true
     @Binding var isSwitchOn: Bool
     @Binding var isSwitchDateOn: Bool
+    @Binding var priorityStatus: String
+
     
     func deleteItem(at offsets: IndexSet) {
             offsets.forEach { index in
@@ -32,7 +34,7 @@ struct RemindersTasks: View {
             List {
                 Section {
                     ForEach(items.filter { !$0.isDone }) { item in
-                        ToDoListItemView(item: item, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
+                        ToDoListItemView(item: item, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
                             .swipeActions {
                                 
                                 Button(role: .destructive) {
@@ -107,14 +109,14 @@ struct RemindersTasks: View {
             
         }
         .sheet(isPresented: $isShowingModal2){
-            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
+            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
         } .sheet(item: $toDoToEdit,
                  onDismiss: {
               toDoToEdit = nil
           },
                  content: { editItem in
               NavigationStack {
-                  NewReminder(item: editItem, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn)
+                  NewReminder(item: editItem, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
                       .interactiveDismissDisabled()
               }
           })

@@ -13,6 +13,8 @@ struct ToDoListItemView: View {
     @Binding var isSwitchOn: Bool
     @Binding var isSwitchDateOn: Bool
     @State private var shouldBeVisible = true
+    @Binding var priorityStatus: String
+
     
     func hideItemAfterDelay() {
             if item.isDone {
@@ -55,6 +57,7 @@ struct ToDoListItemView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Text(item.title)
+                            .foregroundStyle(priorityStatus == "Low" ? .yellow : (priorityStatus == "Medium") ? .orange : (priorityStatus == "High") ? .red : .primary)
                     }
                     Spacer()
                     if let selectDate = item.selectDate {
@@ -97,6 +100,7 @@ struct ToDoListItemView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Text(item.title)
+                            .foregroundStyle(priorityStatus == "Low" ? .yellow : (priorityStatus == "Medium") ? .orange : (priorityStatus == "High") ? .red : .primary)
                         Text(item.notes)
                             .font(.callout)
                             .foregroundStyle(.gray).opacity(0.8)
@@ -115,7 +119,7 @@ struct ToDoListItemView: View {
             }
             
         }
-        .padding(1.5)
+        .padding(2.5)
         
     }
 }

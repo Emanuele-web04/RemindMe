@@ -15,6 +15,7 @@ struct DetailsView: View {
     @State private var isSwitchMessageOn = false
     @State private var isSwitchLocationOn = false
     @State private var isSwitchFlagOn = false
+    @State private var prioritySelectedButFlagNot = false
     //@State private var selectedDate = Date()
     @Binding var item: ReminderStore
     @Binding var dismissed : Bool
@@ -24,6 +25,7 @@ struct DetailsView: View {
     @Binding var isAddButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
+    @Binding var priorityStatus: String
     
     
     var body: some View {
@@ -291,11 +293,14 @@ struct DetailsView: View {
                             .frame(width: 25, height: 25)
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.white, Color.red)
-                        Picker("Priority", selection: $selectedOption) {
-                            ForEach(0..<pickerOptions.count) { index in
-                                Text(pickerOptions[index])
-                            }
+                        Picker("Priority", selection: $priorityStatus) {
+                            Text("None").tag("None")
+                            Text("Low").tag("Low")
+                            Text("Medium").tag("Medium")
+                            Text("High").tag("High")
                         }
+                        .pickerStyle(MenuPickerStyle())
+                        .tint(isSwitchFlagOn == true ? .blue : .gray)
                     }
                 }
                 
@@ -329,9 +334,19 @@ struct DetailsView: View {
                                 context.insert(item)
                             }
                         }
-                        dismiss()
+                       
+                        if priorityStatus != "None" && isSwitchFlagOn == false {
+                            prioritySelectedButFlagNot = true
+                        } else {
+                            dismiss()
+                        }
                     }
-
+                    .alert(isPresented: $prioritySelectedButFlagNot) {
+                            Alert(
+                                title: Text("Cannot select"),
+                                message: Text("You cannot select without activating the flag.")
+                            )
+                        }
                     .disabled(item.title == "")
                     .interactiveDismissDisabled()
                     .foregroundStyle(item.title == "" ? .gray : .blue)
