@@ -10,10 +10,7 @@ import SwiftData
 
 struct ToDoListItemView: View {
     @Bindable var item: ReminderStore
-    @Binding var isSwitchOn: Bool
-    @Binding var isSwitchDateOn: Bool
     @State private var shouldBeVisible = true
-    @Binding var priorityStatus: String
 
     
     func hideItemAfterDelay() {
@@ -29,7 +26,6 @@ struct ToDoListItemView: View {
     var body: some View {
         HStack {
             if item.notes == "" {
-                
                 if shouldBeVisible { // Mostra il contenuto solo se shouldBeVisible è true
                     Button {
                         withAnimation {
@@ -57,16 +53,32 @@ struct ToDoListItemView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Text(item.title)
-                            .foregroundStyle(priorityStatus == "Low" ? .yellow : (priorityStatus == "Medium") ? .orange : (priorityStatus == "High") ? .red : .primary)
+                            .foregroundStyle(item.priorityStatus == "Low" ? .yellow : (item.priorityStatus == "Medium") ? .orange : (item.priorityStatus == "High") ? .red : .primary)
                     }
                     Spacer()
-                    if let selectDate = item.selectDate {
-                        if (isSwitchOn || isSwitchDateOn) {
-                            Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
-                                .font(.callout)
-                                .foregroundStyle(selectDate > Date.now ? .gray : .red)
-                        } else if (!isSwitchOn && !isSwitchDateOn){
-                            Text("")
+                    VStack(alignment: .trailing) {
+                        if item.isSwitchFlagOn == true {
+                            Image(systemName: "flag.fill")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                                .foregroundStyle(.orange)
+                            if let selectDate = item.selectDate {
+                                if (item.isSwitchOn || item.isSwitchDateOn) {
+                                    Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                        .font(.caption)
+                                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                                }
+                            }
+                        } else {
+                            if let selectDate = item.selectDate {
+                                if (item.isSwitchOn || item.isSwitchDateOn) {
+                                    Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                        .font(.caption)
+                                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                                } else if (!item.isSwitchOn && !item.isSwitchDateOn){
+                                    Text("")
+                                }
+                            }
                         }
                     }
                     
@@ -100,21 +112,38 @@ struct ToDoListItemView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Text(item.title)
-                            .foregroundStyle(priorityStatus == "Low" ? .yellow : (priorityStatus == "Medium") ? .orange : (priorityStatus == "High") ? .red : .primary)
+                            .foregroundStyle(item.priorityStatus == "Low" ? .yellow : (item.priorityStatus == "Medium") ? .orange : (item.priorityStatus == "High") ? .red : .primary)
                         Text(item.notes)
                             .font(.callout)
                             .foregroundStyle(.gray).opacity(0.8)
                     }
                     Spacer()
-                    if let selectDate = item.selectDate {
-                        if (isSwitchOn || isSwitchDateOn) {
-                            Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
-                                .font(.callout)
-                                .foregroundStyle(selectDate > Date.now ? .gray : .red)
-                        } else if (!isSwitchOn && !isSwitchDateOn){
-                            Text("")
+                    VStack(alignment: .trailing) {
+                        if item.isSwitchFlagOn == true {
+                            Image(systemName: "flag.fill")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                                .foregroundStyle(.orange)
+                            if let selectDate = item.selectDate {
+                                if (item.isSwitchOn || item.isSwitchDateOn) {
+                                    Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                        .font(.caption)
+                                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                                }
+                            }
+                        } else {
+                            if let selectDate = item.selectDate {
+                                if (item.isSwitchOn || item.isSwitchDateOn) {
+                                    Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                        .font(.caption)
+                                        .foregroundStyle(selectDate > Date.now ? .gray : .red)
+                                } else if (!item.isSwitchOn && !item.isSwitchDateOn){
+                                    Text("")
+                                }
+                            }
                         }
                     }
+                    
                 }
             }
             

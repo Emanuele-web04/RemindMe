@@ -28,7 +28,7 @@ struct ContentView: View {
                 Section {
                     ForEach(listObj.listObject) { list in
                         NavigationLink {
-                            RemindersTasks(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
+                            RemindersTasks()
                         } label: {
                             HStack {
                                 list.listIcon
@@ -115,7 +115,7 @@ struct ContentView: View {
                         }
                         .sheet(isPresented: $showingModal) {
                             // Content of the modal view goes here
-                            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
+                            NewReminder()
                         }
                         Spacer()
                         Button("Add List", action: {})

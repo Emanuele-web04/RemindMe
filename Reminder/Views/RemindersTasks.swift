@@ -16,9 +16,7 @@ struct RemindersTasks: View {
     @Query private var items: [ReminderStore]
     @State private var toDoToEdit: ReminderStore?
     @State private var isAddButtonDisabled = true
-    @Binding var isSwitchOn: Bool
-    @Binding var isSwitchDateOn: Bool
-    @Binding var priorityStatus: String
+
 
     
     func deleteItem(at offsets: IndexSet) {
@@ -34,7 +32,7 @@ struct RemindersTasks: View {
             List {
                 Section {
                     ForEach(items.filter { !$0.isDone }) { item in
-                        ToDoListItemView(item: item, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
+                        ToDoListItemView(item: item)
                             .swipeActions {
                                 
                                 Button(role: .destructive) {
@@ -109,14 +107,14 @@ struct RemindersTasks: View {
             
         }
         .sheet(isPresented: $isShowingModal2){
-            NewReminder(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
+            NewReminder()
         } .sheet(item: $toDoToEdit,
                  onDismiss: {
               toDoToEdit = nil
           },
                  content: { editItem in
               NavigationStack {
-                  NewReminder(item: editItem, isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn, priorityStatus: $priorityStatus)
+                  NewReminder(item: editItem)
                       .interactiveDismissDisabled()
               }
           })

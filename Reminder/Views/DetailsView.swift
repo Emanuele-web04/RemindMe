@@ -9,13 +9,9 @@ import SwiftUI
 import SwiftData
 struct DetailsView: View {
     @State var dateTime: Date = .now
-    @Binding var isSwitchOn: Bool
-    @Binding var isSwitchDateOn: Bool
     @State private var isSwitchTagOn = false
     @State private var isSwitchMessageOn = false
     @State private var isSwitchLocationOn = false
-    @State private var isSwitchFlagOn = false
-    @State private var prioritySelectedButFlagNot = false
     //@State private var selectedDate = Date()
     @Binding var item: ReminderStore
     @Binding var dismissed : Bool
@@ -25,7 +21,6 @@ struct DetailsView: View {
     @Binding var isAddButtonDisabled : Bool
     @State private var selectedOption = 0
     @State private var pickerOptions = ["None", "Low", "Medium", "High"]
-    @Binding var priorityStatus: String
     
     
     var body: some View {
@@ -45,10 +40,10 @@ struct DetailsView: View {
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.white, .red)
                         }
-                        Toggle("Date", isOn: $isSwitchDateOn)
+                        Toggle("Date", isOn: $item.isSwitchDateOn)
                     }
                     Section {
-                        if isSwitchDateOn {
+                        if item.isSwitchDateOn {
                             withAnimation {
                                 DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .date)
                                             .datePickerStyle(GraphicalDatePickerStyle())
@@ -69,12 +64,12 @@ struct DetailsView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(Color.white, .blue)
                             }
-                            Toggle("Time", isOn: $isSwitchOn)
+                            Toggle("Time", isOn: $item.isSwitchOn)
                                 
                         }
                     }
                     Section {
-                        if isSwitchOn {
+                        if item.isSwitchOn {
                             DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .hourAndMinute)
                                 .datePickerStyle(WheelDatePickerStyle())
                                 .transition(.opacity)
@@ -84,7 +79,7 @@ struct DetailsView: View {
                 
                 
                 Section {
-                    if isSwitchOn {
+                    if item.isSwitchOn {
                         HStack {
                             Image(systemName: "bell.square.fill")
                                 .resizable()
@@ -130,7 +125,7 @@ struct DetailsView: View {
                                     .foregroundStyle(.gray).opacity(0.6)
                             }
                         }
-                    } else if isSwitchDateOn {
+                    } else if item.isSwitchDateOn {
                             HStack {
                                 Image(systemName: "bell.square.fill")
                                     .resizable()
@@ -283,7 +278,7 @@ struct DetailsView: View {
                             .frame(width: 25, height: 25)
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.white, .orange)
-                        Toggle("Flag", isOn: $isSwitchFlagOn)
+                        Toggle("Flag", isOn: $item.isSwitchFlagOn)
                     }
                 }
                 Section {
@@ -293,14 +288,14 @@ struct DetailsView: View {
                             .frame(width: 25, height: 25)
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.white, Color.red)
-                        Picker("Priority", selection: $priorityStatus) {
+                        Picker("Priority", selection: $item.priorityStatus) {
                             Text("None").tag("None")
                             Text("Low").tag("Low")
                             Text("Medium").tag("Medium")
                             Text("High").tag("High")
                         }
                         .pickerStyle(MenuPickerStyle())
-                        .tint(isSwitchFlagOn == true ? .blue : .gray)
+                        .tint(.gray)
                     }
                 }
                 
@@ -333,25 +328,10 @@ struct DetailsView: View {
                             withAnimation {
                                 context.insert(item)
                             }
-                        }
-                       
-                        if priorityStatus != "None" && isSwitchFlagOn == false {
-                            prioritySelectedButFlagNot = true
-                        } else {
                             dismiss()
                         }
+                        
                     }
-                    .alert(isPresented: $prioritySelectedButFlagNot) {
-                            Alert(
-                                title: Text("Cannot select"),
-                                message: Text("You cannot select without activating the flag.")
-                            )
-                        }
-                    .disabled(item.title == "")
-                    .interactiveDismissDisabled()
-                    .foregroundStyle(item.title == "" ? .gray : .blue)
-                    .bold()
-                    
                 }
             }
         }

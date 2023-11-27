@@ -13,8 +13,7 @@ struct NewReminder: View {
     var listObj = ListObject()
     @State var item = ReminderStore()
     @State var isAddButtonDisabled = true
-    @Binding var isSwitchOn: Bool
-    @Binding var isSwitchDateOn: Bool
+
     @Environment (\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
@@ -22,7 +21,6 @@ struct NewReminder: View {
     @State private var newItemPresented = false
     @State var dismissed = false
     @FocusState var isTextFieldFocused
-    @Binding var priorityStatus: String
 
     
     var body: some View {
@@ -62,7 +60,7 @@ struct NewReminder: View {
                 }
                 Section{
                     NavigationLink {
-                        DetailsView(isSwitchOn: $isSwitchOn, isSwitchDateOn: $isSwitchDateOn ,item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled, priorityStatus: $priorityStatus)
+                        DetailsView(item: $item, dismissed: $dismissed, isAddButtonDisabled: $isAddButtonDisabled)
                             .onDisappear() {
                                 if !isAddButtonDisabled {
                                     if dismissed {
@@ -110,7 +108,7 @@ struct NewReminder: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
-                        if !isSwitchOn || !isSwitchDateOn {
+                        if !item.isSwitchOn || !item.isSwitchDateOn {
                             item.selectDate = .now
                         } else {
                             
