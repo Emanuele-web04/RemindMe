@@ -7,20 +7,22 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
+
 struct DetailsView: View {
     @State var dateTime: Date = .now
     @State private var isSwitchTagOn = false
     @State private var isSwitchMessageOn = false
     @State private var isSwitchLocationOn = false
     //@State private var selectedDate = Date()
+    @State var selectedPhoto: PhotosPickerItem?
+
     @Binding var item: ReminderStore
     @Binding var dismissed : Bool
     @State private var notification = NotificationHandler()
     @Environment (\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @Binding var isAddButtonDisabled : Bool
-    @State private var selectedOption = 0
-    @State private var pickerOptions = ["None", "Low", "Medium", "High"]
     
     
     var body: some View {
@@ -46,7 +48,7 @@ struct DetailsView: View {
                         if item.isSwitchDateOn {
                             withAnimation {
                                 DatePicker("", selection: Binding($item.selectDate) ?? .constant(Date()), displayedComponents: .date)
-                                            .datePickerStyle(GraphicalDatePickerStyle())
+                                    .datePickerStyle(GraphicalDatePickerStyle())
                             }
                         }
                     }
@@ -65,7 +67,7 @@ struct DetailsView: View {
                                     .foregroundStyle(Color.white, .blue)
                             }
                             Toggle("Time", isOn: $item.isSwitchOn)
-                                
+                            
                         }
                     }
                     Section {
@@ -126,54 +128,54 @@ struct DetailsView: View {
                             }
                         }
                     } else if item.isSwitchDateOn {
-                            HStack {
-                                Image(systemName: "bell.square.fill")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(Color.white, .purple)
-                                Text("Early Reminder")
-                                Spacer()
-                                Menu {
-                                    Button(action: {}){
-                                        HStack{
-                                            Text("None")
-                                            
-                                        }
+                        HStack {
+                            Image(systemName: "bell.square.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(Color.white, .purple)
+                            Text("Early Reminder")
+                            Spacer()
+                            Menu {
+                                Button(action: {}){
+                                    HStack{
+                                        Text("None")
+                                        
                                     }
-                                    Button(action: {}){
-                                        HStack{
-                                            Text("1 day before")
-                                            
-                                        }
-                                    }
-                                    Button(action: {}){
-                                        HStack{
-                                            Text("2 day before")
-                                            
-                                        }
-                                    }
-                                    Button(action: {}){
-                                        HStack{
-                                            Text("1 week before")
-                                            
-                                        }
-                                    }
-                                    Button(action: {}){
-                                        HStack{
-                                            Text("1 month before")
-                                            
-                                        }
-                                    }
-                                    
-                                } label: {
-                                    Image(systemName: "chevron.up.chevron.down")
-                                        .foregroundStyle(.gray).opacity(0.6)
                                 }
-                        
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 day before")
+                                        
+                                    }
+                                }
+                                Button(action: {}){
+                                    HStack{
+                                        Text("2 day before")
+                                        
+                                    }
+                                }
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 week before")
+                                        
+                                    }
+                                }
+                                Button(action: {}){
+                                    HStack{
+                                        Text("1 month before")
+                                        
+                                    }
+                                }
+                                
+                            } label: {
+                                Image(systemName: "chevron.up.chevron.down")
+                                    .foregroundStyle(.gray).opacity(0.6)
+                            }
+                            
                         }
                     }
-                
+                    
                     Section{
                         HStack {
                             ZStack {
@@ -230,11 +232,11 @@ struct DetailsView: View {
                 
                 Section {
                     HStack {
-                            Image(systemName: "number.square.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.white, .gray.opacity(0.8))
+                        Image(systemName: "number.square.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color.white, .gray.opacity(0.8))
                         NavigationLink {
                             
                         } label: {
@@ -245,11 +247,11 @@ struct DetailsView: View {
                 
                 Section {
                     HStack {
-                            Image(systemName: "location.square.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.white, .blue)
+                        Image(systemName: "location.square.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color.white, .blue)
                         Toggle("Location", isOn: $isSwitchLocationOn)
                     }
                 }
@@ -302,9 +304,34 @@ struct DetailsView: View {
                 
                 
                 Section {
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                        Text("Add Image")
-                    })
+                    
+                    if let selectedPhotoData = item.image,
+                       let uiImage = UIImage(data: selectedPhotoData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity, maxHeight: 300)
+                            .padding(2.0)
+                    }
+                    
+                    PhotosPicker(selection: $selectedPhoto,
+                                 matching: .images,
+                                 photoLibrary: .shared()) {
+                        Label("Add Image", systemImage: "photo")
+                    }
+                    
+                    if item.image != nil {
+                        
+                        Button(role: .destructive) {
+                            withAnimation {
+                                selectedPhoto = nil
+                                item.image = nil
+                            }
+                        } label: {
+                            Label("Remove Image", systemImage: "xmark")
+                                .foregroundStyle(.red)
+                        }
+                    }
                 }
             }
             .listSectionSpacing(15.0)
@@ -335,7 +362,11 @@ struct DetailsView: View {
                 }
             }
         }
-        
+        .task(id: selectedPhoto) {
+                    if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                        item.image = data
+                    }
+                }
         
         .accentColor(.blue)
     }

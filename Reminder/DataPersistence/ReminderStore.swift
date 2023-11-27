@@ -20,6 +20,9 @@ final class ReminderStore: Identifiable {
     var isSwitchFlagOn: Bool
     var priorityStatus: String
     
+    @Attribute(.externalStorage)
+    var image: Data?
+    
     init(title: String = "", 
          notes: String = "",
          isDone: Bool = false,

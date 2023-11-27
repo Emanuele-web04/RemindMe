@@ -54,6 +54,15 @@ struct ToDoListItemView: View {
                     VStack(alignment: .leading){
                         Text(item.title)
                             .foregroundStyle(item.priorityStatus == "Low" ? .yellow : (item.priorityStatus == "Medium") ? .orange : (item.priorityStatus == "High") ? .red : .primary)
+                        if let selectedPhotoData = item.image,
+                           let uiImage = UIImage(data: selectedPhotoData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 30, height: 30)
+                                .clipShape(RoundedRectangle(cornerRadius: 10,
+                                                            style: .continuous))
+                        }
                     }
                     Spacer()
                     VStack(alignment: .trailing) {
@@ -116,6 +125,15 @@ struct ToDoListItemView: View {
                         Text(item.notes)
                             .font(.callout)
                             .foregroundStyle(.gray).opacity(0.8)
+                        if let selectedPhotoData = item.image,
+                           let uiImage = UIImage(data: selectedPhotoData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 30, height: 30)
+                                .clipShape(RoundedRectangle(cornerRadius: 10,
+                                                            style: .continuous))
+                        }
                     }
                     Spacer()
                     VStack(alignment: .trailing) {
