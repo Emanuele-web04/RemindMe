@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SwiftUIImageViewer
 
 struct RemindersTasks: View {
     @State private var isShowingModal2 = false
@@ -16,12 +17,13 @@ struct RemindersTasks: View {
     @Query private var items: [ReminderStore]
     @State private var toDoToEdit: ReminderStore?
     @State private var isAddButtonDisabled = true
+    @Binding var notification: NotificationHandler
 
 
     
     func deleteItem(at offsets: IndexSet) {
             offsets.forEach { index in
-                _ = items[index]
+                _ = items[index].isSwitchNotificationOn = false
                 // Assuming you have a data manager or a method to delete the item from your data source
             }
         }
@@ -39,6 +41,8 @@ struct RemindersTasks: View {
                                     
                                     withAnimation(Animation.easeInOut(duration: 2.5)) {
                                         context.delete(item)
+                                        item.isSwitchNotificationOn = true
+//                                        notification.showNotification(item: item)
                                     }
                                     
                                 } label: {

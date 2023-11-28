@@ -24,7 +24,17 @@ struct DetailsView: View {
     @Environment(\.modelContext) var context
     @Binding var isAddButtonDisabled : Bool
     
-    
+//    func showNotification() {
+//        if item.isSwitchNotificationOn == true {
+//            notification.sendNotification(
+//                date: item.selectDate ?? Date.now,
+//                type: "date",
+//                title: item.title,
+//                body: item.notes
+//            )
+//        }
+//    }
+//    
     var body: some View {
         NavigationStack {
             List {
@@ -80,196 +90,235 @@ struct DetailsView: View {
                 }
                 
                 
-                Section {
-                    if item.isSwitchOn {
-                        HStack {
-                            Image(systemName: "bell.square.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.white, .purple)
-                            Text("Early Reminder")
-                            Spacer()
-                            Menu {
-                                Button(action: {}){
-                                    HStack{
-                                        Text("None")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 day before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("2 day before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 week before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 month before")
-                                        
-                                    }
-                                }
-                                
-                            } label: {
-                                Image(systemName: "chevron.up.chevron.down")
-                                    .foregroundStyle(.gray).opacity(0.6)
-                            }
-                        }
-                    } else if item.isSwitchDateOn {
-                        HStack {
-                            Image(systemName: "bell.square.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.white, .purple)
-                            Text("Early Reminder")
-                            Spacer()
-                            Menu {
-                                Button(action: {}){
-                                    HStack{
-                                        Text("None")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 day before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("2 day before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 week before")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("1 month before")
-                                        
-                                    }
-                                }
-                                
-                            } label: {
-                                Image(systemName: "chevron.up.chevron.down")
-                                    .foregroundStyle(.gray).opacity(0.6)
-                            }
-                            
-                        }
-                    }
-                    
-                    Section{
-                        HStack {
-                            ZStack {
-                                Rectangle ()
-                                    .frame(width: 25, height:25)
-                                    .cornerRadius(5)
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundStyle(.gray).opacity(0.5)
-                                Image(systemName: "repeat")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .foregroundStyle(Color.white)
-                            }
-                            Text("Repeat")
-                            Spacer()
-                            Menu {
-                                Button(action: {}){
-                                    HStack{
-                                        Text("Never")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("Daily")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("Weekly")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("Monthly")
-                                        
-                                    }
-                                }
-                                Button(action: {}){
-                                    HStack{
-                                        Text("Yearly")
-                                        
-                                    }
-                                }
-                            } label: {
-                                Image(systemName: "chevron.up.chevron.down")
-                                    .foregroundStyle(.gray).opacity(0.6)
-                            }
-                        }
-                    }
-                }
-                
-                Section {
-                    HStack {
-                        Image(systemName: "number.square.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.white, .gray.opacity(0.8))
-                        NavigationLink {
-                            
-                        } label: {
-                            Text("Tags")
-                        }
-                    }
-                }
-                
-                Section {
-                    HStack {
-                        Image(systemName: "location.square.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.white, .blue)
-                        Toggle("Location", isOn: $isSwitchLocationOn)
-                    }
-                }
+                //                Section {
+                //                    if item.isSwitchOn {
+                //                        HStack {
+                //                            Image(systemName: "bell.square.fill")
+                //                                .resizable()
+                //                                .frame(width: 25, height: 25)
+                //                                .symbolRenderingMode(.palette)
+                //                                .foregroundStyle(Color.white, .purple)
+                //                            Text("Early Reminder")
+                //                            Spacer()
+                //                            Menu {
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("None")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 day before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("2 day before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 week before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 month before")
+                //
+                //                                    }
+                //                                }
+                //
+                //                            } label: {
+                //                                Image(systemName: "chevron.up.chevron.down")
+                //                                    .foregroundStyle(.gray).opacity(0.6)
+                //                            }
+                //                        }
+                //                    } else if item.isSwitchDateOn {
+                //                        HStack {
+                //                            Image(systemName: "bell.square.fill")
+                //                                .resizable()
+                //                                .frame(width: 25, height: 25)
+                //                                .symbolRenderingMode(.palette)
+                //                                .foregroundStyle(Color.white, .purple)
+                //                            Text("Early Reminder")
+                //                            Spacer()
+                //                            Menu {
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("None")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 day before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("2 day before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 week before")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("1 month before")
+                //
+                //                                    }
+                //                                }
+                //
+                //                            } label: {
+                //                                Image(systemName: "chevron.up.chevron.down")
+                //                                    .foregroundStyle(.gray).opacity(0.6)
+                //                            }
+                //
+                //                        }
+                //                    }
+                //
+                //                    Section{
+                //                        HStack {
+                //                            ZStack {
+                //                                Rectangle ()
+                //                                    .frame(width: 25, height:25)
+                //                                    .cornerRadius(5)
+                //                                    .aspectRatio(contentMode: .fit)
+                //                                    .foregroundStyle(.gray).opacity(0.5)
+                //                                Image(systemName: "repeat")
+                //                                    .resizable()
+                //                                    .frame(width: 15, height: 15)
+                //                                    .foregroundStyle(Color.white)
+                //                            }
+                //                            Text("Repeat")
+                //                            Spacer()
+                //                            Menu {
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("Never")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("Daily")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("Weekly")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("Monthly")
+                //
+                //                                    }
+                //                                }
+                //                                Button(action: {}){
+                //                                    HStack{
+                //                                        Text("Yearly")
+                //
+                //                                    }
+                //                                }
+                //                            } label: {
+                //                                Image(systemName: "chevron.up.chevron.down")
+                //                                    .foregroundStyle(.gray).opacity(0.6)
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //
+                //                Section {
+                //                    HStack {
+                //                        Image(systemName: "number.square.fill")
+                //                            .resizable()
+                //                            .frame(width: 25, height: 25)
+                //                            .symbolRenderingMode(.palette)
+                //                            .foregroundStyle(Color.white, .gray.opacity(0.8))
+                //                        NavigationLink {
+                //
+                //                        } label: {
+                //                            Text("Tags")
+                //                        }
+                //                    }
+                //                }
+                //
+                //                Section {
+                //                    HStack {
+                //                        Image(systemName: "location.square.fill")
+                //                            .resizable()
+                //                            .frame(width: 25, height: 25)
+                //                            .symbolRenderingMode(.palette)
+                //                            .foregroundStyle(Color.white, .blue)
+                //                        Toggle("Location", isOn: $isSwitchLocationOn)
+                //                    }
+                //                }
+                //
+                //                Section {
+                //                    HStack {
+                //                        ZStack {
+                //                            Rectangle()
+                //                                .frame(width: 25, height:25)
+                //                                .cornerRadius(5)
+                //                                .aspectRatio(contentMode: .fit)
+                //                                .foregroundStyle(.green)
+                //                            Image(systemName: "message.fill")
+                //                                .resizable()
+                //                                .frame(width: 15, height: 15)
+                //                                .foregroundStyle(Color.white)
+                //                        }
+                //                        Toggle("When Messaging", isOn: $isSwitchMessageOn)
+                //                    }
+                //                }
                 
                 Section {
                     HStack {
                         ZStack {
-                            Rectangle()
+                            Rectangle ()
                                 .frame(width: 25, height:25)
                                 .cornerRadius(5)
                                 .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(.green)
-                            Image(systemName: "message.fill")
+                                .foregroundStyle(.cyan).opacity(0.9)
+                            Image(systemName: "bell.badge.fill")
                                 .resizable()
-                                .frame(width: 15, height: 15)
+                                .frame(width: 12, height: 15)
                                 .foregroundStyle(Color.white)
                         }
-                        Toggle("When Messaging", isOn: $isSwitchMessageOn)
+                        Toggle("Notification", isOn: Binding(
+                            get: { item.isSwitchNotificationOn },
+                            set: { newValue in
+                                item.isSwitchNotificationOn = newValue
+                                if newValue {
+                                    // Se il toggle è attivato, invia una nuova notifica e salva l'identificatore
+                                    let newIdentifier = notification.sendNotification(
+                                        date: item.selectDate ?? Date.now,
+                                        type: "date",
+                                        title: item.title,
+                                        body: item.notes
+                                    )
+                                    item.notificationIdentifier = newIdentifier
+                                } else {
+                                    // Se il toggle è disattivato, cancella la notifica esistente
+                                    if let existingIdentifier = item.notificationIdentifier {
+                                        notification.cancelNotification(identifier: existingIdentifier)
+                                        item.notificationIdentifier = nil
+                                    }
+                                }
+                            }
+                        ))
+
                     }
                 }
                 
@@ -343,13 +392,22 @@ struct DetailsView: View {
                      dismiss()
                      }*/
                     Button("Add") {
-                        let formattedDate = item.selectDate?.formatted(.dateTime.day().month().hour().minute()) ?? Date.now.formatted(.dateTime.day().month().hour().minute())
-                        notification.sendNotification(
-                            date: item.selectDate ?? Date.now,
-                            type: "date",
-                            title: item.title,
-                            body: "You created a reminder for \(formattedDate)"
-                        )
+                        // Aggiorna e invia la notifica se il toggle è attivo
+                        if item.isSwitchNotificationOn {
+                            if let existingIdentifier = item.notificationIdentifier {
+                                // Cancella la notifica esistente
+                                notification.cancelNotification(identifier: existingIdentifier)
+                            }
+                            // Invia una nuova notifica e salva l'identificatore
+                            item.notificationIdentifier = notification.sendNotification(
+                                date: item.selectDate ?? Date.now,
+                                type: "date",
+                                title: item.title,
+                                body: item.notes
+                            )
+                        }
+
+                        // Gestisci l'aggiunta del promemoria al contesto del modello
                         if !isAddButtonDisabled {
                             dismissed = true
                             withAnimation {
@@ -357,8 +415,8 @@ struct DetailsView: View {
                             }
                             dismiss()
                         }
-                        
                     }
+
                 }
             }
         }

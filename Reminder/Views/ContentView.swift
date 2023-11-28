@@ -16,9 +16,9 @@ struct ContentView: View {
     let gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 50), count: 2) // Adjust the spacing value as needed
     @State private var showingModal = false
     @Query private var items: [ReminderStore]
-    @State private var isSwitchOn = false
-    @State private var isSwitchDateOn = false
     @State private var askForPermission = NotificationHandler()
+    @State private var notification = NotificationHandler()
+
     @State var priorityStatus = "None"
 
     var body: some View {
@@ -28,7 +28,7 @@ struct ContentView: View {
                 Section {
                     ForEach(listObj.listObject) { list in
                         NavigationLink {
-                            RemindersTasks()
+                            RemindersTasks(notification: $notification)
                         } label: {
                             HStack {
                                 list.listIcon
@@ -134,7 +134,7 @@ struct ContentView: View {
             .font(.system(.body, design: .rounded))
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 askForPermission.askPermission()
             }
         }

@@ -7,10 +7,12 @@
 
 import SwiftUI
 import SwiftData
+import SwiftUIImageViewer
 
 struct ToDoListItemView: View {
     @Bindable var item: ReminderStore
     @State private var shouldBeVisible = true
+    @State private var isImageViewerPresented = false
 
     
     func hideItemAfterDelay() {
@@ -62,6 +64,25 @@ struct ToDoListItemView: View {
                                 .frame(width: 30, height: 30)
                                 .clipShape(RoundedRectangle(cornerRadius: 10,
                                                             style: .continuous))
+                                .onTapGesture {
+                                    isImageViewerPresented = true
+                                }
+                                .fullScreenCover(isPresented: $isImageViewerPresented) {
+                                    SwiftUIImageViewer(image: Image(uiImage: uiImage))
+                                        .overlay(alignment: .topTrailing) {
+                                            Button {
+                                                isImageViewerPresented = false
+                                            } label: {
+                                                Image(systemName: "xmark")
+                                                    .font(.headline)
+                                            }
+                                            .buttonStyle(.bordered)
+                                            .clipShape(Circle())
+                                            .tint(.red)
+                                            .padding()
+                                            
+                                        }
+                                }
                         }
                     }
                     Spacer()
@@ -74,7 +95,7 @@ struct ToDoListItemView: View {
                             if let selectDate = item.selectDate {
                                 if (item.isSwitchOn || item.isSwitchDateOn) {
                                     Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
-                                        .font(.caption)
+                                        .font(.callout)
                                         .foregroundStyle(selectDate > Date.now ? .gray : .red)
                                 }
                             }
@@ -82,7 +103,7 @@ struct ToDoListItemView: View {
                             if let selectDate = item.selectDate {
                                 if (item.isSwitchOn || item.isSwitchDateOn) {
                                     Text("\(selectDate, format: Date.FormatStyle(date: .numeric, time: .shortened))")
-                                        .font(.caption)
+                                        .font(.callout)
                                         .foregroundStyle(selectDate > Date.now ? .gray : .red)
                                 } else if (!item.isSwitchOn && !item.isSwitchDateOn){
                                     Text("")
@@ -130,9 +151,28 @@ struct ToDoListItemView: View {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 30, height: 30)
-                                .clipShape(RoundedRectangle(cornerRadius: 10,
+                                .frame(width: 35, height: 35)
+                                .clipShape(RoundedRectangle(cornerRadius: 4,
                                                             style: .continuous))
+                                .onTapGesture {
+                                    isImageViewerPresented = true
+                                }
+                                .fullScreenCover(isPresented: $isImageViewerPresented) {
+                                    SwiftUIImageViewer(image: Image(uiImage: uiImage))
+                                        .overlay(alignment: .topTrailing) {
+                                            Button {
+                                                isImageViewerPresented = false
+                                            } label: {
+                                                Image(systemName: "xmark")
+                                                    .font(.headline)
+                                            }
+                                            .buttonStyle(.bordered)
+                                            .clipShape(Circle())
+                                            .tint(.red)
+                                            .padding()
+                                            
+                                        }
+                                }
                         }
                     }
                     Spacer()

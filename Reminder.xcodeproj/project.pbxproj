@@ -13,6 +13,7 @@
 		C02BC1DB2B0B4B6900A6FF62 /* ToDoListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BC1DA2B0B4B6900A6FF62 /* ToDoListItem.swift */; };
 		C02BC1DD2B0B4CC400A6FF62 /* ToDoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BC1DC2B0B4CC400A6FF62 /* ToDoListItemView.swift */; };
 		C02BC1E12B0B9E4200A6FF62 /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02BC1E02B0B9E4200A6FF62 /* ReminderStore.swift */; };
+		C087D8B02B16811E0051758C /* SwiftUIImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = C087D8AF2B16811E0051758C /* SwiftUIImageViewer */; };
 		C0A724372B0915FC00FFE4D0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A724362B0915FC00FFE4D0 /* DetailsView.swift */; };
 		C0A724392B0917BF00FFE4D0 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A724382B0917BF00FFE4D0 /* Detail.swift */; };
 		C0A7243B2B09183100FFE4D0 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7243A2B09183100FFE4D0 /* Details.swift */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C087D8B02B16811E0051758C /* SwiftUIImageViewer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +171,9 @@
 			dependencies = (
 			);
 			name = Reminder;
+			packageProductDependencies = (
+				C087D8AF2B16811E0051758C /* SwiftUIImageViewer */,
+			);
 			productName = Reminder;
 			productReference = C0BB4ED62B07EDC200A44B60 /* Reminder.app */;
 			productType = "com.apple.product-type.application";
@@ -197,6 +202,9 @@
 				Base,
 			);
 			mainGroup = C0BB4ECD2B07EDC200A44B60;
+			packageReferences = (
+				C087D8AE2B16811E0051758C /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
+			);
 			productRefGroup = C0BB4ED72B07EDC200A44B60 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -450,6 +458,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C087D8AE2B16811E0051758C /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fuzzzlove/swiftui-image-viewer?ref=iosexample.com";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C087D8AF2B16811E0051758C /* SwiftUIImageViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C087D8AE2B16811E0051758C /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
+			productName = SwiftUIImageViewer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0BB4ECE2B07EDC200A44B60 /* Project object */;
 }

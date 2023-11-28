@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SwiftData
 import UserNotifications
 
 class NotificationHandler {
+
     func askPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
@@ -19,7 +21,18 @@ class NotificationHandler {
         }
     }
     
-    func sendNotification(date: Date, type: String, timeInterval: Double = 10, title: String, body: String) {
+//    func showNotification(item: ReminderStore) {
+//        if item.isSwitchNotificationOn {
+//            self.sendNotification(
+//                date: item.selectDate ?? Date.now,
+//                type: "date",
+//                title: item.title,
+//                body: item.notes
+//            )
+//        }
+//    }
+    
+    func sendNotification(date: Date, type: String, title: String, body: String) -> String {
         var trigger: UNNotificationTrigger?
         
         // Create a trigger (either from date or time based)
@@ -34,7 +47,17 @@ class NotificationHandler {
         content.sound = UNNotificationSound.default
         
         // Create the request
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+//        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+//        UNUserNotificationCenter.current().add(request)
+        
+        let identifier = UUID().uuidString
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
+        return identifier
     }
+    
+    func cancelNotification(identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+    }
+    
 }

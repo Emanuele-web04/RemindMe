@@ -18,20 +18,24 @@ final class ReminderStore: Identifiable {
     var isSwitchOn: Bool
     var isSwitchDateOn: Bool
     var isSwitchFlagOn: Bool
+    var isSwitchNotificationOn: Bool
     var priorityStatus: String
+    var notificationIdentifier: String?
+
     
     @Attribute(.externalStorage)
     var image: Data?
     
-    init(title: String = "", 
-         notes: String = "",
-         isDone: Bool = false,
-         selectDate: Date = .now,
-         isSwitchOn: Bool = false,
-         isSwitchDateOn: Bool = false,
-         isSwitchFlagOn: Bool = false,
-         priorityStatus: String = "None"
-    ) {
+        init(title: String = "",
+        notes: String = "",
+        isDone: Bool = false,
+        selectDate: Date = .now,
+        isSwitchOn: Bool = false,
+        isSwitchDateOn: Bool = false,
+        isSwitchFlagOn: Bool = false,
+        isSwitchNotificationOn: Bool = false,
+        priorityStatus: String = "None"
+        ) {
         self.title = title
         self.notes = notes
         self.isDone = isDone
@@ -41,6 +45,7 @@ final class ReminderStore: Identifiable {
         self.isSwitchDateOn = isSwitchDateOn
         self.isSwitchFlagOn = isSwitchFlagOn
         self.priorityStatus = priorityStatus
+        self.isSwitchNotificationOn = isSwitchNotificationOn
     }
 }
 
@@ -54,6 +59,7 @@ extension ReminderStore {
               isSwitchOn: false,
               isSwitchDateOn: false,
               isSwitchFlagOn: false,
+              isSwitchNotificationOn: false,
               priorityStatus: "None"
         )
     }
